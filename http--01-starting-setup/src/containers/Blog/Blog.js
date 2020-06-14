@@ -25,7 +25,7 @@ class Blog extends Component {
         // working with the returned data from the axios call
         const posts = response.data.slice(0, 4);
         const updatedPosts = posts.map((post) => {
-          return { ...post, author: "Roberto" };
+          return { ...post, author: "Robert" };
         });
         this.setState({ posts: updatedPosts });
       })
