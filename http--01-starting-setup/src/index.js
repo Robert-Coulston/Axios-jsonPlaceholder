@@ -6,9 +6,6 @@ import registerServiceWorker from "./registerServiceWorker";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
-axios.defaults.headers.common['Authorization'] = "AUTH TOKEN";
-axios.defaults.headers.post['Content-Type'] = "application/json"; // This is the default anyway, but shown because this is what is possible
-
 
 // Can add request headers....
 axios.interceptors.request.use(
@@ -31,7 +28,6 @@ axios.interceptors.response.use(
     console.log("response");
     console.log(response);
 
-    //Edit request
     return response;
   },
   (error) => {
