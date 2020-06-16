@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./Posts.css";
 import axios from "axios";
-import Post from '../../../components/Post/Post'
+import Post from "../../../components/Post/Post";
+import { Link } from "react-router-dom";
 
 class Posts extends Component {
   state = {
@@ -11,6 +12,8 @@ class Posts extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
+
     // async call
     this.GetPosts();
   }
@@ -32,18 +35,6 @@ class Posts extends Component {
       });
   }
 
-  postClickHandler(key) {
-    console.log(key);
-    axios
-      .get("/posts/" + key)
-      .then((response) => {
-        console.log(response.data);
-        this.setState({ selectedPost: response.data });
-      })
-      .catch((error) => {
-        this.setState({ error: true });
-      });
-  }
 
   render() {
     console.log("[Blog render]");
@@ -53,20 +44,17 @@ class Posts extends Component {
     } else {
       let posts = this.state.posts.map((post) => {
         return (
-          <Post
-            key={post.id}
-            title={post.title}
-            author={post.author}
-            clicked={(key) => this.postClickHandler(post.id)}
-          />
+          <Link to={'/' + post.id} key={post.id} >
+            <Post
+              title={post.title}
+              author={post.author}
+              
+            />
+          </Link>
         );
       });
 
-      return (
-        <section className="Posts">
-          {posts}
-        </section>
-      );
+      return <section className="Posts">{posts}</section>;
     }
   }
 }

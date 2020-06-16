@@ -10,6 +10,11 @@ class NewPost extends Component {
     author: "Max",
   };
 
+  componentDidMount() {
+    // props includes routing information
+    console.log(this.props);
+  }
+
   postDataHandler = () => {
       console.log("[postDataHandler]");
       
@@ -23,7 +28,7 @@ class NewPost extends Component {
   }
 
   render() {
-    return (
+   return (
       <div className="NewPost">
         <h1>Add a Post</h1>
         <label>Title</label>
