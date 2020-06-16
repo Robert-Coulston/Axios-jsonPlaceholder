@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import './NavBar.css';
+import "./NavBar.css";
 
 const NavBar = (props) => {
   console.log("NavBar");
@@ -12,10 +12,24 @@ const NavBar = (props) => {
         <ul>
           <li>
             {/* NavLink used instead of anchor a because it avoids reloading the page */}
-            <NavLink to="/" exact activeClassName="my-active" activeStyle={{textDecoration:'underline'}}>Home</NavLink>
+            <NavLink
+              to="/posts"
+              exact
+              activeClassName="my-active"
+              activeStyle={{ textDecoration: "underline" }}
+            >
+              Home
+            </NavLink>
           </li>
           <li>
-            <NavLink to={{pathname:'/new-post'}} exact activeClassName="my-active" activeStyle={{textDecoration:'underline'}}>New Post</NavLink>
+            <NavLink
+              to={{ pathname: "/new-post" }}
+              exact
+              activeClassName="my-active"
+              activeStyle={{ textDecoration: "underline" }}
+            >
+              New Post
+            </NavLink>
           </li>
         </ul>
       </nav>

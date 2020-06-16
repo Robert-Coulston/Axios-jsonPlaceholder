@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./Posts.css";
 import axios from "axios";
 import Post from "../../../components/Post/Post";
-import { withRouter } from "react-router-dom";
+import { withRouter, Route } from "react-router-dom";
+import FullPost from "../FullPost/FullPost";
 
 class Posts extends Component {
   state = {
@@ -38,10 +39,10 @@ class Posts extends Component {
   postSelectedHandler = (key) => {
     console.log("postSelectedHandler");
     console.log(key, this.props);
-        
+
     // Go to the selected post with key
-    this.props.history.push({pathname: '/' + key});
-  }
+    this.props.history.push({ pathname: "/posts/" + key });
+  };
 
   render() {
     console.log("[Blog render]");
@@ -52,18 +53,24 @@ class Posts extends Component {
       let posts = this.state.posts.map((post) => {
         return (
           // <Link to={'/' + post.id} key={post.id} >
-            <Post
-              key={post.id}
-              index={post.id}
-              title={post.title}
-              author={post.author}
-              clicked={(key) => this.postSelectedHandler(post.id)}
-            />
+          <Post
+            key={post.id}
+            index={post.id}
+            title={post.title}
+            author={post.author}
+            clicked={(key) => this.postSelectedHandler(post.id)}
+          />
           // </Link>
         );
       });
 
-      return <section className="Posts">{posts}</section>;
+      return (
+        <div>
+          <section className="Posts">{posts}</section>
+          {/* Nested route... note that parent route does not have exact and dynamic use of props.match.url because it is nested */}
+          <Route path={this.props.match.url + "/:id"} component={() => <FullPost />} />
+        </div>
+      );
     }
   }
 }
