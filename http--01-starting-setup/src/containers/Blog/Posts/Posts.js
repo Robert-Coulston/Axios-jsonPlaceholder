@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Posts.css";
 import axios from "axios";
 import Post from "../../../components/Post/Post";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class Posts extends Component {
   state = {
@@ -35,6 +35,13 @@ class Posts extends Component {
       });
   }
 
+  postSelectedHandler = (key) => {
+    console.log("postSelectedHandler");
+    console.log(key, this.props);
+        
+    // Go to the selected post with key
+    this.props.history.push({pathname: '/' + key});
+  }
 
   render() {
     console.log("[Blog render]");
@@ -44,13 +51,15 @@ class Posts extends Component {
     } else {
       let posts = this.state.posts.map((post) => {
         return (
-          <Link to={'/' + post.id} key={post.id} >
+          // <Link to={'/' + post.id} key={post.id} >
             <Post
+              key={post.id}
+              index={post.id}
               title={post.title}
               author={post.author}
-              
+              clicked={(key) => this.postSelectedHandler(post.id)}
             />
-          </Link>
+          // </Link>
         );
       });
 
@@ -59,4 +68,4 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+export default withRouter(Posts);
