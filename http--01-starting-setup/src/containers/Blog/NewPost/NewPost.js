@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import {Redirect, withRouter} from 'react-router-dom';
 
 import "./NewPost.css";
 
@@ -8,8 +8,8 @@ class NewPost extends Component {
   state = {
     title: "",
     content: "",
-    author: "Max",
-    submitted: false
+    author: "Max"
+    // submitted: false
   };
 
   componentDidMount() {
@@ -28,20 +28,24 @@ class NewPost extends Component {
 
       axios.post("/posts", post)
       .then((response) => {
-        this.setState({submitted:true}); 
+        // Pushes a new page onto the stack of pages
+        this.props.history.push('/posts');
+
+        // alternate way of redirect - directly replace page on stack instead of pushing a new page
+        //this.setState({submitted:true}); 
         console.log(response)
       });
   }
 
   render() {
-    let redirect = null;
-    if (this.state.submitted) {
-      redirect = <Redirect to="/posts"/>;
-    }
+    // let redirect = null;
+    // if (this.state.submitted) {
+    //   redirect = <Redirect to="/posts"/>;
+    // }
 
    return (
       <div className="NewPost">
-        {redirect}
+        {/* {redirect} */}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input
@@ -69,4 +73,4 @@ class NewPost extends Component {
   }
 }
 
-export default NewPost;
+export default withRouter(NewPost);
